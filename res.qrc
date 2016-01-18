@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="icon">resource/icon.ico</file>
+        <file alias="iconsmall">resource/iconsmall.ico</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="logo">resource/logo.jpg</file>
+        <file alias="who">resource/who.png</file>
+        <file alias="logosmall">resource/logosmall.jpg</file>
+        <file alias="logoimage2">resource/logo2.jpg</file>
+    </qresource>
+</RCC>
