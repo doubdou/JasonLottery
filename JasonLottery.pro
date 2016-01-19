@@ -29,3 +29,8 @@ CONFIG += c++11
 
 RESOURCES += \
     res.qrc
+
+OTHER_FILES += \
+    myapp.rc
+
+RC_FILE = myapp.rc

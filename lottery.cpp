@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QTime>
 #include <QTimer>
+#include <QDebug>
 
 #include <stdlib.h>
 
@@ -16,13 +17,14 @@ Lottery::Lottery(QWidget *parent) :
     ui(new Ui::Lottery)
 {
     ui->setupUi(this);
+    setFixedSize(620,534);
     setWindowIcon(QIcon(":/icons/icon"));
 
     ui->btn_start->setEnabled(false);
     ui->btn_start->setStyleSheet("font-size:30px");
 
     /*初始化标题*/
-    ui->label_title->setText("迅达电梯无锡分公司 年会抽奖");
+    ui->label_title->setText("迅达电梯南京分公司 年会抽奖");
     ui->label_title->setStyleSheet("font-size:22px;color:red");
     ui->label_title->setAlignment(Qt::AlignHCenter);
     //ui->label_title->setFont(&(75));
@@ -43,9 +45,19 @@ Lottery::Lottery(QWidget *parent) :
     /*初始化”重置“按钮*/
     connect(ui->btn_reset, &QPushButton::clicked, [=]()
     {
-        namelist = namelistfull;
 
-        /*修改统计人数的label*/
+
+        if (namelist.size() == 0)
+        {
+            QMessageBox::information(this,"提示","无抽奖名单！重置失败！");
+            return;
+        }
+        namelist.clear();
+        namelist = namelistfull;
+        ui->btn_start->setEnabled(true);
+
+
+        //修改统计人数的label
         QString  s11;
         int winnernum = namelistfull.size() - namelist.size();
         s11 = QString::number(winnernum,10);
@@ -54,6 +66,8 @@ Lottery::Lottery(QWidget *parent) :
         QString s_22;
         s_22 = QString::number(namelist.size(), 10);
         ui->label_leftnum_2->setText(s_22);  //剩余参与人数
+
+
     });
 
     /*初始化 帮助->关于 */
@@ -97,14 +111,6 @@ Lottery::Lottery(QWidget *parent) :
     {
         on_Btn_start_clicked();
     });
-
-    connect(ui->btn_reset, &QPushButton::clicked, [=]()
-    {
-        namelist.clear();
-        namelist = namelistfull;
-        ui->btn_start->setEnabled(true);
-    });
-
 }
 
 Lottery::~Lottery()
